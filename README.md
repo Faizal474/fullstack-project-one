@@ -128,5 +128,36 @@ server.use("/", (req, res) => {
 34. Create folder views in the main directory
     $ mkdir views
 35. Create a new file under views as views/index.ejs
-36. Put html under views/index.ejs
-37. 
+36. Put some sample html under views/index.ejs
+37. Add css link to the html
+```
+<link rel="stylesheet" href="style.css">
+```
+38. Embed some javascript
+```
+<%= Math.random() -%>
+```
+39. Pass arguments to the ejs from express
+```
+server.use("/", (req, res) => {
+    res.render("index", {
+        content: "this is from express",
+    });
+});
+```
+40. Use the passed object in EJS
+```
+<%= content -%>
+```
+41. Pass html in the content
+```
+server.use("/", (req, res) => {
+    res.render("index", {
+        content: "this is from <em>express</em>",
+    });
+});
+```
+42. Render content as html
+```
+<%- content -%>
+```
