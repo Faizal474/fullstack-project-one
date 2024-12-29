@@ -387,6 +387,7 @@ export default {
 
 - use the config from config module
 ```
+import os from "node:os";
 import config from "./config";
 ...
 ...
