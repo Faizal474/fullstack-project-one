@@ -1,91 +1,234 @@
 # fullstack-project-one
 
-## Building a fullstack sample application
+# Day 1 - Install dependencies
 
-### Verify dependencies
+- git
+- node
+- github desktop app
+- clone repo
 
-$ node -v
+# Day 2 - experiment with node and express
 
-$ npm -v
+- Initialise directory and install express
+  - `mkdir express-example`
+  - `cd express-example`
+  - `npm init -y`
+  - `npm install express@4.17.1`
 
-$ git --version
+- Write sample server
+  - open `server.js`
+  - write the following code
+```
+const express = require('express');
 
-### Step by step instructions to build the project
+const app = express();
+```
 
-1. Initialialize the npm directory
-    $ mkdir my-example-project
-    $ cd my-example-project
-    $ npm init -y
+- modify
+```
+const express = require('express');
 
-2. Install typescript
-    $ npm install typescript
+const app = express();
 
-3. Check if typescript is working
-    $ npx tsc -v
+app.get('/', (req, res) => {
+  res.send('Successful response.');
+});
+```
 
-4. Run NPM scripts
-    $ npm run test
-    $ npm test
+- modify
+```
+const express = require('express');
 
-5. Remove node_modules folder and try reinstalling packages with
-    $ rm -rf node_modules # this command works only on Git Bash / Linux / MacOS. For windows, you need to delete this folder from the project explorer
-    $ npm install
+const app = express();
 
-6. Install development dependencies
-    $ npm i --save-dev eslint prettier
+app.get('/', (req, res) => {
+  res.send('Successful response.');
+});
+
+app.listen(3000, () => console.log('Example app is listening on port 3000.'));
+```
+
+- run server
+```
+node server.js
+```
+
+- Use middleware
+```
+const express = require('express');
+
+const app = express();
+
+app.use((req, res, next) => {
+  console.log('Time: ', Date.now());
+  next();
+});
+
+app.get('/', (req, res) => {
+  res.send('Successful response.');
+});
+
+app.get('/exam', (req, res) => {
+  res.send('Successful response.'); // read and write
+});
+
+app.get('/results, (req, res) => {
+  res.send('Successful response.'); // read permission for students, write permission for lecturers
+});
+
+app.listen(3000, () => console.log('Example app is listening on port 3000.'));
+```
+
+- modify
+```
+const express = require('express');
+
+const app = express();
+
+app.use((req, res, next) => {
+  console.log('Time: ', Date.now());
+  next();
+});
+
+app.use('/results', (req, res, next) => {
+# check if the person is authenticated 
+  # check if the person has permission for this resource
+  console.log('Request type: ', req.method);
+  next();
+});
+
+app.get('/', (req, res) => {
+  res.send('Successful response.');
+});
+
+app.listen(3000, () => console.log('Example app is listening on port 3000.'));
+```
+
+- install utility package
+```
+npm install serve-index@1.9.1
+```
+
+- modify code to use the utility package
+```
+const express = require('express');
+const serveIndex = require('serve-index');
+
+const app = express();
+
+app.use((req, res, next) => {
+  console.log('Time: ', Date.now());
+  next();
+});
+
+app.use('/request-type', (req, res, next) => {
+  console.log('Request type: ', req.method);
+  next();
+});
+
+app.use('/public', express.static('public'));
+app.use('/public', serveIndex('public'));
+
+app.get('/', (req, res) => {
+  res.send('Successful response.');
+});
+
+app.listen(3000, () => console.log('Example app is listening on port 3000.'));
+```
+
+# Day 3 - Building a fullstack sample application
+
+- Verify dependencies
+  - `node -v`
+  - `npm -v`
+  - `git --version`
+
+- Initialialize the npm directory
+  - `mkdir my-example-project`
+  - `cd my-example-project`
+  - `npm init -y`
+
+- Install typescript
+  - `npm install typescript`
+
+- Check if typescript is working
+  - `npx tsc -v`
+
+- Run NPM scripts
+  - `npm run test`
+  - `npm test`
+
+- Remove node_modules folder and try reinstalling packages with
+  - `rm -rf node_modules`  Note: this command works only on Git Bash / Linux / MacOS. For windows, you need to delete this folder from the project explorer
+  - `npm install`
+
+- Install development dependencies
+  - `npm i --save-dev eslint prettier`
         or
-    $ npm i -D eslint prettier
+  - `npm i -D eslint prettier`
 
-7. Create a src folder
-    $ mkdir src
+- Create a src folder
+  - `mkdir src`
 
-8. Create a distribution (dist) directory
-    $ mkdir dist
+- Create a distribution (dist) directory
+  - `mkdir dist`
 
-9. Create a server directory
-    $ mkdir src/server
+- Create a server directory
+  - `mkdir src/server`
 
-10. Create file src/server/server.ts
-11. Add the following lines to the server.ts file
+- Create file `src/server/server.ts`
+- Add the following lines to the `server.ts` file
 ```
 import express from "express";
 console.log(express);
 ```
-12. Execute the typescript file with tsc
-    $ npx tsc src/server/server.ts
-13. Install express as a project dependency
-    $ npm i express
-14. Compile again using the same command
-    $ npx tsc src/server/server.ts
-15. Run the compiled version
-    $ node src/server/server.js
-16. Modify the server.ts file to this code
+- Execute the typescript file with tsc
+  - `npx tsc src/server/server.ts`
+
+- Install express as a project dependency
+  - `npm i express`
+
+- Compile again using the same command
+  - `npx tsc src/server/server.ts`
+
+- Run the compiled version
+  - `node src/server/server.js`
+
+- Modify the `server.ts` file to this code
 ```
 import * as express from "express";
 console.log(express);
 ```
-17. Recompile and execute
-    $ npx tsc src/server/server.ts
-    $ node src/server/server.js
-18. Install dev dependency
-    $ npm i -D ts-node-dev
-19. Reconfigure typescript and change the src/server.ts back to this
+
+- Recompile and execute
+  - `npx tsc src/server/server.ts`
+  - `node src/server/server.js`
+
+- Install dev dependency
+  - `npm i -D ts-node-dev`
+
+- Reconfigure typescript and change the `src/server.ts` back to this
 ```
 import express from "express";
 console.log(express);
 ```
-20. Copy tsconfig.json from references folder to main folder
-21. Run dev server
-    $ npx tsnd src/server/server.ts
-22. Add script to the package.json with a convenience command as follows
+
+- Copy `tsconfig.json` from `references` folder to main folder
+
+- Run dev server
+  - `npx tsnd src/server/server.ts`
+
+- Add script to the `package.json` with a convenience command as follows
 ```
 "scripts": {
     "dev:server": "tsnd src/server/server.ts"
 }
 ```
-23. Run the dev server with the new method
-    $ npm run dev:server
-24. Change the server.ts code as follows
+
+- Run the dev server with the new method
+  - `npm run dev:server`
+
+- Change the `server.ts` code as follows
 ```
 import express from "express"
 
@@ -95,49 +238,64 @@ server.listen("8080", "0.0.0.0", () => {
     console.info("Express server listening at http://0.0.0.0:8080");
 });
 ```
-25. Run the server
-    $ npm run dev:server
-26. Copy files from references/dist folder into dist folder in the main directory
-    $ cp dist/favicon.ico dist/
-    $ cp dist/style.css dist/
-27. Add the middleware to serve static files into the express code
+
+- Run the server
+  - `npm run dev:server`
+
+- Copy files from `references/dist` folder into `dist` folder in the main directory
+  - `cp dist/favicon.ico dist/`
+  - `cp dist/style.css dist/`
+
+- Add the middleware to serve static files into the express code
 ```
 server.use(express.static("dist));
 ```
-28. Navigate to http://localhost:8080/style.css in the browser after restarting the server
-29. Add / route to express
+
+- Navigate to `http://localhost:8080/style.css` in the browser after restarting the server
+
+- Add `/` route to express
 ```
 server.use("/", (req, res) => {
     res.send("Hello World!!");
 });
 ```
-30. Copy prettier.config.js into the main directory
-    $ cp references/prettier.config.js .
-31. Install ejs as production dependency
-    $ npm i ejs
-32. Set view engine property to ejs on express
+
+- Copy `prettier.config.js` into the main directory
+  - `cp references/prettier.config.js .`
+
+- Install `ejs` as production dependency
+  - `npm i ejs`
+
+- Set `view engine` property to ejs on express
 ```
 server.set("view engine", "ejs");
 ```
-33. Change the response to render instead of send
+
+- Change the response to `render` instead of `send`
 ```
 server.use("/", (req, res) => {
     res.render("index");
 });
 ```
-34. Create folder views in the main directory
-    $ mkdir views
-35. Create a new file under views as views/index.ejs
-36. Put some sample html under views/index.ejs
-37. Add css link to the html
+
+- Create folder `views` in the main directory
+  - `mkdir views`
+
+- Create a new file under views as `views/index.ejs`
+
+- Put some sample html under `views/index.ejs`
+
+- Add css link to the html
 ```
 <link rel="stylesheet" href="style.css">
 ```
-38. Embed some javascript
+
+- Embed some javascript
 ```
 <%= Math.random() -%>
 ```
-39. Pass arguments to the ejs from express
+
+- Pass arguments to the ejs from express
 ```
 server.use("/", (req, res) => {
     res.render("index", {
@@ -145,11 +303,13 @@ server.use("/", (req, res) => {
     });
 });
 ```
-40. Use the passed object in EJS
+
+- Use the passed object in EJS
 ```
 <%= content -%>
 ```
-41. Pass html in the content
+
+- Pass html in the content
 ```
 server.use("/", (req, res) => {
     res.render("index", {
@@ -157,7 +317,10 @@ server.use("/", (req, res) => {
     });
 });
 ```
-42. Render content as html
+
+- Render content as html
 ```
 <%- content -%>
 ```
+
+# Day 4 - 
