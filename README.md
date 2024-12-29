@@ -520,4 +520,153 @@ root.render(<App />);
 
 # Section 6 - 
 
+- include dynamic content in JSX `index.tsx`
+```
+<div>
+    <h1>Hello From React </h1>
+    <h2>With JSX </h2>
+    Math.random()
+</div>
+```
+
+- add conditional rendering
+```
+{Math.random() > 0.5 && <h2> this is a conditional render </h2>}
+```
+
+- render an array in a for loop
+```
+const TODOs = ["my task 1", "my task 2", "my task 3"];
+{
+    TODOs.map((element) => {
+        return <li>element</li>
+    });
+}
+```
+
+- using `<></>` empty tags to render multiple items
+```
+<>
+    <li>My task 1</li>
+    <li>My task 2</li>
+</>
+```
+
+- adding style to an element
+```
+<div style={{color: "green"}}></div>
+```
+
+- assigning a class to an html element
+```
+<div className="hello"></div>
+```
+
+- using components for reusability
+```
+...
+<div className="container">
+    <div className="header">
+        Certification Programmes
+    </div>
+</div>
+```
+
+- create a component
+```
+const Header = () => {
+    return (
+        <div className="header">
+            Certification Programmes
+        </div>
+    );
+};
+
+...
+<div className="container">
+    <Header />
+</div>
+```
+
+- pass the content as attribute to the component
+```
+<div className="container">
+    <Header message="Certification Programmes"/>
+</div>
+```
+
+- modify the component to accept the props as argument
+```
+const Header = (props) => {
+    return (
+        <div className="header">
+            {props.message}
+        </div>
+    );
+};
+```
+
+- destructure the props argument
+```
+const Header = ({message}) => {
+    return (
+        <div className="header">
+            {message}
+        </div>
+    );
+};
+```
+
+- move the reusable components into their own files
+
+- create a folder named `components` under `src` folder
+  - `mkdir src/components`
+
+- create files named `src/components/app.tsx` and `src/components/header.tsx`
+
+- move the header component into `header.tsx`
+```
+const Header = (props) => {
+    return (
+        <div className="header">
+            {props.message}
+        </div>
+    );
+};
+
+export default Header;
+```
+
+- move the app component into `app.tsx`
+```
+import Header from "./components/header";
+
+const App = () => {
+    return (
+        <div className="container">
+            <Header message="Certification Programmes" />
+        </div>
+    );
+};
+
+export default App;
+```
+
+- modify `index.tsx` as follows
+```
+import {createRoot} from "react-dom/client";
+
+import App from "./components/app";
+
+const container = document.getElementById("app");
+const root = createRoot(container);
+
+root.render(<App />);
+```
+
+- install browser extension "React Developer Tools" in chrome browser
+
+# Section 7 - State Management in React
+
+- using `useState`
 
