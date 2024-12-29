@@ -399,5 +399,49 @@ server.listen(config.PORT, config.HOST, () => {
 - Run the server with overriden env variables
   - `PORT=3000 npm run dev:server`
 
+- Install Docker Desktop
+  - [Docker Desktop](https://docs.docker.com/desktop/setup/install/windows-install/)
 
+- Run mongodb container using Docker desktop
 
+- Install mongodb compass for GUI access to mongodb
+  - [MongoDB Compass](https://www.mongodb.com/try/download/compass)
+
+- add mongodb URI and db name to the config
+```
+export const MONGODB_URI = env.MONGODB_URI ?? "mongodb://localhost:27017";
+export const DATABASE_NAME = env.DATABASE_NAME ?? "local";
+export default {
+    ...
+    MONGODB_URI,
+}
+```
+
+- Install mongodb driver package for nodejs
+  - `npm i mongodb`
+
+- create a file `src/db.ts` with the following code
+```
+import { MongoClient } from "mongodb";
+import { MONGODB_URI, DATABASE_NAME } from "./config";
+
+let connectedClient = null;
+
+export const connectClient = async () => {
+    if (connectedClient) {
+        return connectedClient.db(DATABASE_NAME);
+    }
+    const client = new MongoClient(MONGODB_URI);
+    await client.connect();
+    await client.db(DATABASE_NAME).command({ping: 1});
+    console.info("Connected to MongoDB");
+
+    connectedClient = client;
+    return connectedClient.db(DATABASE_NAME);
+};
+
+export const stopClient = async () => {
+    await connectedClient?.close();
+};
+
+```
