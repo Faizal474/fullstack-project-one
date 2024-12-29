@@ -323,4 +323,80 @@ server.use("/", (req, res) => {
 <%- content -%>
 ```
 
-# Day 4 - 
+# Day 4 -
+
+- create a file called `config.ts` inside `src` folder with content
+```
+console.log("Config...");
+```
+
+- import `config.ts` inside `server.ts`
+```
+import "./config";
+```
+
+- export something from the config module
+```
+export default {
+    test: true,
+}
+```
+
+- import exported variables from config module like follows
+```
+import config from "./config";
+console.log({ config });
+```
+
+- export named constants
+```
+export const PORT = "8080";
+```
+
+- import named constants
+```
+import config, { PORT } from "./config";
+console.log({PORT});
+```
+
+- export a function from config
+```
+export default () => ({
+    test: true,
+});
+```
+
+- call the exported function
+```
+import config from "./config";
+console.log(config());
+```
+
+- read config from process environment
+```
+const env = process.env;
+export const PORT = env.PORT ?? "8080";
+export const HOST = env.HOST ?? "0.0.0.0";
+export const SERVER_URL = `http://${HOST}:${PORT}/`;
+export default {
+    PORT,
+    HOST,
+    SERVER_URL,
+}
+```
+
+- use the config from config module
+```
+import config from "./config";
+...
+...
+server.listen(config.PORT, config.HOST, () => {
+    console.info(`Express server listening at: ${config.SERVER_URL}`, `Free Memory: ${os.freemem()}`);
+})
+```
+
+- Run the server with overriden env variables
+  - `PORT=3000 npm run dev:server`
+
+
+
