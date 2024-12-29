@@ -1,13 +1,13 @@
 # fullstack-project-one
 
-# Day 1 - Install dependencies
+# Section 1 - Install dependencies
 
 - git
 - node
 - github desktop app
 - clone repo
 
-# Day 2 - experiment with node and express
+# Section 2 - experiment with node and express
 
 - Initialise directory and install express
   - `mkdir express-example`
@@ -136,7 +136,7 @@ app.get('/', (req, res) => {
 app.listen(3000, () => console.log('Example app is listening on port 3000.'));
 ```
 
-# Day 3 - Building a fullstack sample application
+# Section 3 - Building a fullstack sample application
 
 - Verify dependencies
   - `node -v`
@@ -323,7 +323,7 @@ server.use("/", (req, res) => {
 <%- content -%>
 ```
 
-# Day 4 -
+# Section 4 -
 
 - create a file called `config.ts` inside `src` folder with content
 ```
@@ -454,7 +454,7 @@ export const stopClient = async () => {
 - verify data in `local` db with mongodb compass GUI
 
 
-# Day 5 - Using React for building frontend
+# Section 5 - Using React for building frontend
 
 - create a file called `index.tsx` under `src`directory with the following content
 ```
@@ -518,6 +518,6 @@ root.render(<App />);
   - convert the above dependencies as development dependencies with
     - `npm i -D @typescript-eslint/parser eslint-plugin-react eslint-plugin-react-hooks`
 
-# Day 6 - 
+# Section 6 - 
 
 
