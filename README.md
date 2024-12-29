@@ -445,3 +445,79 @@ export const stopClient = async () => {
 };
 
 ```
+
+- populate the sample db content from reference data
+  - copy files from `src/dev` into main folder with cmd: `cp -r src/dev src/` Note: this works only on linux. For windows, we need to copy the folder with the explorer or VSCode Project Explorer
+  - run the db sample data generation script with
+    - `npx tsnd src/dev/load-test-data.ts`
+
+- verify data in `local` db with mongodb compass GUI
+
+
+# Day 5 - Using React for building frontend
+
+- create a file called `index.tsx` under `src`directory with the following content
+```
+const App = () => {
+    return (
+        <div>Hello from React</div>
+    );
+};
+```
+
+- install `react` and `react-dom`as production dependencies
+  - `npm install react react-dom`
+
+- modify the `index.tsx` with the following
+```
+import { createRoot } from "react-dom/client";
+....
+const container = document.getElementById("app");
+
+const root = createRoot(container);
+root.render(<App />);
+```
+
+- modify index.ejs with the following code snippet
+```
+<div id="app"> <%- content -%> </div>
+```
+
+- Install bundler `webpack` for bundling multiple javascript files and for efficiency
+  - `npm i webpack webpack-cli`
+  - also install `ts-loader` with `npm i ts-loader`
+
+- move the config file `webpack.config.js` from reference folder into the main folder
+  - `mv references/webpack.config.js .`
+
+- add one more convenience script in `package.json`
+```
+"dev:bundler": "webpack -w --mode=development"
+```
+
+- run the server
+  - `npm run dev:server`
+
+- run webpack bundler
+  - `npm run dev:bundler`
+
+- include the generated `main.js` inside the `index.ejs` file
+```
+<body>
+...
+    <script src="main.js"></script>
+</body>
+```
+
+- reload the page
+
+- copy `.gitignore`, `.eslintignore`, `.eslintrc.js` files from reference folder to main folder
+
+- configure eslint by copying the eslintrc file and installing the dependent packages
+  - `npm i @typescript-eslint/parser eslint-plugin-react eslint-plugin-react-hooks`
+  - convert the above dependencies as development dependencies with
+    - `npm i -D @typescript-eslint/parser eslint-plugin-react eslint-plugin-react-hooks`
+
+# Day 6 - 
+
+
