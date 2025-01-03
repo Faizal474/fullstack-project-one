@@ -110,13 +110,33 @@ eval("\n\nif (false) {} else {\n  module.exports = __webpack_require__(/*! ./cjs
 
 /***/ }),
 
+/***/ "./src/app.tsx":
+/*!*********************!*\
+  !*** ./src/app.tsx ***!
+  \*********************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+eval("\nvar __importDefault = (this && this.__importDefault) || function (mod) {\n    return (mod && mod.__esModule) ? mod : { \"default\": mod };\n};\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nvar jsx_runtime_1 = __webpack_require__(/*! react/jsx-runtime */ \"./node_modules/react/jsx-runtime.js\");\nvar header_1 = __importDefault(__webpack_require__(/*! ./components/header */ \"./src/components/header.tsx\"));\nvar App = function () {\n    var myrandom = Math.random();\n    console.log(myrandom);\n    var TODOs = [\"my task 1\", \"my task 2\", \"my task 3\", \"one more\"];\n    return ((0, jsx_runtime_1.jsx)(\"div\", { className: \"container\", children: (0, jsx_runtime_1.jsx)(header_1.default, { message: \"Certification Programmes\" }) }));\n};\nexports[\"default\"] = App;\n\n\n//# sourceURL=webpack://fullstack-project-one/./src/app.tsx?");
+
+/***/ }),
+
+/***/ "./src/components/header.tsx":
+/*!***********************************!*\
+  !*** ./src/components/header.tsx ***!
+  \***********************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+eval("\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nvar jsx_runtime_1 = __webpack_require__(/*! react/jsx-runtime */ \"./node_modules/react/jsx-runtime.js\");\nvar Header = function (_a) {\n    var message = _a.message;\n    console.log({ message: message });\n    return ((0, jsx_runtime_1.jsx)(\"div\", { className: \"header\", children: message }));\n};\nexports[\"default\"] = Header;\n\n\n//# sourceURL=webpack://fullstack-project-one/./src/components/header.tsx?");
+
+/***/ }),
+
 /***/ "./src/index.tsx":
 /*!***********************!*\
   !*** ./src/index.tsx ***!
   \***********************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-eval("\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nvar jsx_runtime_1 = __webpack_require__(/*! react/jsx-runtime */ \"./node_modules/react/jsx-runtime.js\");\nvar client_1 = __webpack_require__(/*! react-dom/client */ \"./node_modules/react-dom/client.js\");\nvar App = function () {\n    var myrandom = Math.random();\n    console.log(myrandom);\n    var TODOs = [\"my task 1\", \"my task 2\", \"my task 3\", \"one more\"];\n    return ((0, jsx_runtime_1.jsxs)(\"div\", { children: [(0, jsx_runtime_1.jsx)(\"h1\", { children: \"Hello From React \" }), (0, jsx_runtime_1.jsx)(\"h2\", { children: \"With JSX \" }), myrandom > 0.5 && (0, jsx_runtime_1.jsxs)(\"h2\", { children: [\" \", myrandom, \" this is a conditional render \"] }), TODOs.map(function (element) {\n                return (0, jsx_runtime_1.jsx)(\"li\", { children: element });\n            })] }));\n};\nvar container = document.getElementById(\"app\");\nvar root = (0, client_1.createRoot)(container);\nroot.render((0, jsx_runtime_1.jsx)(App, {}));\n\n\n//# sourceURL=webpack://fullstack-project-one/./src/index.tsx?");
+eval("\nvar __importDefault = (this && this.__importDefault) || function (mod) {\n    return (mod && mod.__esModule) ? mod : { \"default\": mod };\n};\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nvar jsx_runtime_1 = __webpack_require__(/*! react/jsx-runtime */ \"./node_modules/react/jsx-runtime.js\");\nvar client_1 = __webpack_require__(/*! react-dom/client */ \"./node_modules/react-dom/client.js\");\nvar app_1 = __importDefault(__webpack_require__(/*! ./app */ \"./src/app.tsx\"));\nvar container = document.getElementById(\"app\");\nvar root = (0, client_1.createRoot)(container);\nroot.render((0, jsx_runtime_1.jsx)(app_1.default, {}));\n\n\n//# sourceURL=webpack://fullstack-project-one/./src/index.tsx?");
 
 /***/ })
 
@@ -140,7 +160,7 @@ eval("\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nvar 
 /******/ 		};
 /******/ 	
 /******/ 		// Execute the module function
-/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 		__webpack_modules__[moduleId].call(module.exports, module, module.exports, __webpack_require__);
 /******/ 	
 /******/ 		// Flag the module as loaded
 /******/ 		module.loaded = true;
@@ -163,7 +183,7 @@ eval("\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nvar 
 /******/ 	
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
-/******/ 	// This entry module can't be inlined because the eval devtool is used.
+/******/ 	// This entry module is referenced by other modules so it can't be inlined
 /******/ 	var __webpack_exports__ = __webpack_require__("./src/index.tsx");
 /******/ 	
 /******/ })()
