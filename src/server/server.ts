@@ -13,5 +13,5 @@ server.use("/", (req, res) => {
 });
 
 server.listen(config.PORT, config.HOST, () => {
-    console.info(`Express server listening at: ${config.SERVER_URL}`, `Free Memory: ${os.freemem()}`);
+    console.info(`Express server listening at: ${config.SERVER_URL}`, `Free Memory: ${os.freemem()/1024/1024}`);
 })
