@@ -810,5 +810,11 @@ axios.get(`${API_SERVER_URL}/certifications`)
 res.send({certifications: testData});
 ```
 
+- modify App component to accept `initialData` as a prop
+````
+const App = (({initialData}) => {
+  console.log({initialData});
+  return ....
+});
 
 
