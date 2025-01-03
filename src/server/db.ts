@@ -4,6 +4,8 @@ import { MONGODB_URI, DATABASE_NAME } from "./config";
 let connectedClient = null;
 
 export const connectClient = async () => {
+    console.log("COMING HERE");
+    console.log({MONGODB_URI});
     if (connectedClient) {
         return connectedClient.db(DATABASE_NAME);
     }
