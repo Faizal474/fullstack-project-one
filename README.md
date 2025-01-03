@@ -398,6 +398,10 @@ server.listen(config.PORT, config.HOST, () => {
 
 - Run the server with overriden env variables
   - `PORT=3000 npm run dev:server`
+    - or
+  - `$env:PORT="3000"` for powershell
+    - or
+  - `set PORT=3000` for cmd
 
 - Install Docker Desktop
   - [Docker Desktop](https://docs.docker.com/desktop/setup/install/windows-install/)
