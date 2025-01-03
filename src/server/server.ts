@@ -1,2 +1,2 @@
-import express from "express";
+import * as express from "express";
 console.log(express);
