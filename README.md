@@ -668,5 +668,147 @@ root.render(<App />);
 
 # Section 7 - State Management in React
 
+- React hooks - `useState`, `useEffect` ... `use*`
 - using `useState`
+```
+import {useState} from "react";
+
+const [counter,setCounter] = useState(0);
+...
+<button onClick={()=> {
+  console.log("Clicked");
+  setCounter(counter + 1);
+}}>{counter}</button>
+```
+
+- side effects with `useEffect`
+```
+useEffect(() => {
+  console.log("App component rendered");
+
+  const intervalId = setInterval(() => {
+    setCounter(counter + 1);
+  }, 1000);
+
+  return () => {
+    clearInterval(intervalId);
+  }
+});
+
+useEffect(() => {
+  console.log("log only once");
+}, [])
+
+
+useEffect(() => {
+  console.log("log everytime the counter value changes");
+}, [counter])
+```
+
+- integrating with backend `GET`, `POST`, `PUT`, `DELETE`
+```
+server.get("/", (req, res) => {
+    res.render("index", {
+        content: "this is from express",
+    });
+});
+```
+- creat a file name `api-router.ts` inside the `server` folder
+```
+import express from "express";
+
+const router = express.Router();
+
+router.get("/certifications", (req, res) => {
+  // get the data from MongoDB
+  res.send([]);
+});
+
+export default router;
+```
+
+- import the api router inside server.ts
+```
+import apiRouter from "./api-router";
+...
+...
+server.use("/api", apiRouter);
+...
+```
+- export the test data from mongodb into a json file
+- import test data into api-router.ts
+```
+import testData from "../test-data.json";
+...
+
+router.get("/certifications", (req, res) => {
+  res.send(testData);
+});
+```
+
+
+- configure the API server URL in
+- create a file under `src` with name `public-config.ts` with the following content
+```
+export const PORT = process.env.PORT;
+export const HOST = process.env.HOST;
+export const API_SERVER_URL = ""http://${HOST}:${PORT}/api";
+```
+
+- configure webpack to pick the process env
+- open `webpack.config.js` and add
+```
+const webpack = require("webpack");
+...
+plugins: [
+  new webpack.EnvironmentPlugin({
+    HOST: "0.0.0.0",
+    PORT: "8080"
+  })
+]
+```
+
+- use `fetch` or `axios` to fetch data from the API server in `index.tsx`
+```
+import axios from "axios";
+````
+- install `axios` as a production dependency
+  - `npm i axios`
+
+- use `axios` to fetch data
+```
+import {API_SERVER_URL} from "./public-config";
+....
+axios.get(`${API_SERVER_URL}/certifications`)
+  .then((resp) => {
+    console.log(resp);
+  })
+```
+
+- install and use cors middleware for express
+  - `npm i cors`
+- modify `api-router.ts`
+```
+import cors from "cors";
+....
+router.use(cors())
+```
+
+# Section 8 - Using the API data in react UI
+
+- move the render call inside callback function of axios
+```
+axios.get(`${API_SERVER_URL}/certifications`)
+  .then((resp) => {
+    console.log(resp);
+    root.render(<App initialData={{ certifications: resp.data.certifications }} />);
+  })
+```
+
+- modify `api-router.ts`
+```
+res.send({certifications: testData});
+```
+
+
 
