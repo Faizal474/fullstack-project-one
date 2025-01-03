@@ -1,4 +1,6 @@
 import express from "express"
+import os from "node:os";
+import config from "./config";
 
 const server = express()
 server.set("view engine", "ejs");
@@ -9,6 +11,7 @@ server.use("/", (req, res) => {
         content: "this is from <em>express</em>",
     });
 });
-server.listen("8080", "0.0.0.0", () => {
-    console.info("Express server listening at http://0.0.0.0:8080");
-});
+
+server.listen(config.PORT, config.HOST, () => {
+    console.info(`Express server listening at: ${config.SERVER_URL}`, `Free Memory: ${os.freemem()}`);
+})
