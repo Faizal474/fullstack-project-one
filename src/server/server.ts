@@ -6,7 +6,7 @@ server.set("view engine", "ejs");
 server.use(express.static("dist"));
 server.use("/", (req, res) => {
     res.render("index", {
-        content: "this is from express",
+        content: "this is from <em>express</em>",
     });
 });
 server.listen("8080", "0.0.0.0", () => {
