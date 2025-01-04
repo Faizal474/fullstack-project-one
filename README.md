@@ -816,5 +816,91 @@ const App = (({initialData}) => {
   console.log({initialData});
   return ....
 });
+```
 
+- implement dynamic rendering
+```
+const App = (({initialData}) => {
+  return (
+    <div className="container">
+      <Header message="My Certifications" />
+      <div className="certifications-list">
+        {initialData.certifications}
+      </div>
+    </div>
+  );
+});
+```
+
+- iterate through the data and display each certification separately
+```
+{initialData.certifications.map((certification) => {
+  return (
+    <div className="certification-preview">
+      <div className="category">
+        {certification.categoryName}
+      </div>
+      <div className="certification">
+        {certification.certificationName}
+      </div>
+    </div>);
+})}
+```
+
+- move the code into a separate component and make it reusable
+```
+<CertificationList />
+```
+
+- create a file called `certification-list.tsx` inside `components` directory with the following content
+```
+const CertificationList = ({certifications}) => {
+  return (
+    <div className="certifications-list">
+      {certifications.map((certification) => {
+          return(
+            <div className="certification-preview">
+              <div className="category">
+                {certification.categoryName}
+              </div>
+              <div className="certification">
+                {certification.certificationName}
+              </div>
+            </div>);
+        })}
+    </div>
+  );
+};
+
+export default CertificationList;
+```
+
+- remove old code from `app.tsx` and replace it with
+```
+import CertificationList from "./components/certification-list";
+<CertificationList certifications={initialData.certifications}/>
+```
+- extract certification preview also into it's own component `certification-preview.tsx`
+```
+const CertificationPreview = ({certification}) => {
+  return (
+    <div className="certification-preview">
+      <div className="category">
+        {certification.categoryName}
+      </div>
+      <div className="certification">
+        {certification.certificationName}
+      </div>
+    </div>
+  );
+};
+export default CertificationPreview;
+```
+
+- modify the certification-list component as follows
+```
+import CertificationPreview from "./certification-preview";
+....
+<CertificationPreview certification={certification}/>
+```
 
