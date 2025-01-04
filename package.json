@@ -4,7 +4,8 @@
   "description": "- git\r - node\r - github desktop app\r - clone repo",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev:server": "tsnd src/server/server.ts"
   },
   "keywords": [],
   "author": "",
