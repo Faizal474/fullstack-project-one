@@ -1,4 +1,5 @@
 import express from "express";
+import {PORT, HOST, SERVER_URL} from "../config";
 
 const server = express();
 
@@ -17,7 +18,7 @@ server.use("/", (req, res) => {
     });
 });
 
-server.listen("8080", "0.0.0.0", () => {
-    console.info("Express server listening at http://0.0.0.0:8080");
+server.listen(PORT, HOST, () => {
+    console.info(`Express server listening at ${SERVER_URL}`);
 });
 
