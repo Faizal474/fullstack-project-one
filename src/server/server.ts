@@ -1,3 +1,4 @@
+import os from "node:os";
 import express from "express";
 import {PORT, HOST, SERVER_URL} from "./config";
 
@@ -19,6 +20,6 @@ server.use("/", (req, res) => {
 });
 
 server.listen(PORT, HOST, () => {
-    console.info(`Express server listening at ${SERVER_URL}`);
+    console.info(`Express server listening at ${SERVER_URL}. Have ${os.freemem()/1024/1024} free memory available`);
 });
 
