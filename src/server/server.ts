@@ -5,7 +5,9 @@ const server = express();
 server.use(express.static("dist"));
 
 server.use("/students", (req, res) => {
-    res.send("This is coming from /students path");
+    //TODO get data from DB and serve to UI
+    const anyvariablename = {students: ["student 1", "student 2", "student 3"]};
+    res.send(anyvariablename);
 });
 
 server.use("/", (req, res) => {
