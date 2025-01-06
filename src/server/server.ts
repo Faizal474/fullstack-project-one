@@ -1,5 +1,5 @@
 import express from "express";
-import {PORT, HOST, SERVER_URL} from "../config";
+import {PORT, HOST, SERVER_URL} from "./config";
 
 const server = express();
 
