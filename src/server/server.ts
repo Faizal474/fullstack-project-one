@@ -2,6 +2,7 @@ import express from "express";
 
 const server = express();
 
+server.set("view engine", "ejs");
 server.use(express.static("dist"));
 
 server.use("/students", (req, res) => {
@@ -11,7 +12,9 @@ server.use("/students", (req, res) => {
 });
 
 server.use("/", (req, res) => {
-    res.send("This is coming from / path");
+    res.render("index", {
+        message: "This is from <em>server.ts</em>"
+    });
 });
 
 server.listen("8080", "0.0.0.0", () => {
