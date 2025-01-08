@@ -958,3 +958,5 @@ fetchCertifications().then((data) {
 
 - research about `react suspense` in react. this is an experimental utility
 
+# Section 10 - Server side rendering
+
