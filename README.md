@@ -922,3 +922,39 @@ const CertificationPreview: React.FC<{ certification: object }> = ({certificatio
 
 # Section 9 - Loading data while react is rendering without waiting for the data
 
+- move the axios call inside CertificationsList component
+```
+import axios from "axios";
+import {useEffect, useState} from "react";
+....
+
+const [certifications, setCertifications] = useState([]);
+
+useEffect(() => {
+  debugger;
+  axios.get(`${API_SERVER_URL}/certifications`)
+    .then((resp) => {
+      setCertifications(resp.data.certifications);
+    })
+}, []);
+```
+
+- move out the api requests to a separate file named `src/api-client.ts`
+```
+export const fetchCertifications = async () => {
+  const resp = await axios.get(`${API_SERVER_URL}/certifications`);
+  return resp.data;
+};
+```
+
+- change the `certifications-list.ts`
+```
+import {fetchCertifications} from "../api-client";
+...
+fetchCertifications().then((data) {
+  setCertifications(data.certifications);
+});
+```
+
+- research about `react suspense` in react. this is an experimental utility
+
