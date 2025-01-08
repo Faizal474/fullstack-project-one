@@ -904,3 +904,21 @@ import CertificationPreview from "./certification-preview";
 <CertificationPreview certification={certification}/>
 ```
 
+- add the key to each list item for efficiency
+```
+<CertificationPreview key={certification.id} certification={certification}/>
+
+```
+- declare the type for the CertificationPreview component
+```
+import * as React from "react";
+...
+const CertificationPreview: React.FC<{ certification: object }> = ({certification}) => {
+....
+}
+```
+
+- or use `any` type to liberally use any type
+
+# Section 9 - Loading data while react is rendering without waiting for the data
+
