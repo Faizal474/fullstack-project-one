@@ -1,6 +1,6 @@
 import os from "node:os";
 import express from "express";
-import config, {MONGO_URI, DATABASE_NAME} from "./config";
+import config from "./config";
 
 const server = express();
 server.set("view engine", "ejs");
