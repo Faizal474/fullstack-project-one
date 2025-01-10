@@ -1,27 +1,14 @@
 import os from "node:os";
 import express from "express";
 import config from "./config";
+import apiRouter from "./api-router";
 
 const server = express();
 server.set("view engine", "ejs");
 
 server.use(express.static("dist"));
-server.use("/certifications", (req, res) => {
-    res.send({certifications: [
-        {
-            name: "fullstack development",
-            duration: "6 months",
-        },
-        {
-            name: "web develpment",
-            duration: "3 months",
-        },
-        {
-            name: "devops",
-            duration: "2 months"
-        }
-    ]});
-});
+
+server.use("/api", apiRouter);
 
 server.use("/", (req, res) => {
     // res.send("hello world from express");
