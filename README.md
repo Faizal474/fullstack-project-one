@@ -960,3 +960,29 @@ fetchCertifications().then((data) {
 
 # Section 10 - Server side rendering
 
+- create a file called `render.tsx` under `src/server` directory
+```
+import fetchCertifications from "./api-client";
+import App from "../app";
+import ReactDOMServer from "react-dom/server";
+
+const serverRender = async () => {
+  const certifications = await fetchCertificatins();
+  const initialMarkup = ReactDOMServer.renderToString(
+    <App initialData={{certifications: certifications}} />
+  );
+  return {initialMarkup};
+};
+
+export default serverRender;
+```
+
+- change the `server.ts` to use the returned string
+```
+import serverRender from "./render";
+...
+server.get("/", async (req, res) => {
+  const {initialMarkup} = await serverRender();
+  res.render("index", {initialContent: initialMarkup});
+});
+```
