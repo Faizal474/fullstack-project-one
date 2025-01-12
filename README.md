@@ -248,7 +248,7 @@ server.listen("8080", "0.0.0.0", () => {
 
 - Add the middleware to serve static files into the express code
 ```
-server.use(express.static("dist));
+server.use(express.static("dist"));
 ```
 
 - Navigate to `http://localhost:8080/style.css` in the browser after restarting the server
@@ -985,4 +985,119 @@ server.get("/", async (req, res) => {
   const {initialMarkup} = await serverRender();
   res.render("index", {initialContent: initialMarkup});
 });
+```
+- send initiaData from server as object and use it in ejs template within a script tag
+```
+<script>
+  window.initialData = <%- JSON.stringify(initialData) -%>
+</script>
+```
+- use the `window.initialData` in the `App` initial value
+```
+<App initialData={(window as any).initialData}>
+```
+# Section 11 - Fetching data from the MongoDB
+
+- get data from MongoDB
+```
+import {connectClient} from "./db";
+...
+const client = await connectClient();
+const certifications = await client.collection("certifications")
+  .find()
+  .project({
+    id: 1,
+    categoryName: 1,
+    certificationName: 1,
+    _id: 0,
+  })
+  .toArray();
+```
+
+- add endpoint to fetch details of single entity
+```
+router.get("/certification/:certificationId", async (req, res) => {
+  //req.params.certificationId
+  const certification = await connectClient()
+    .collection("certifications")
+    .findOne({id: req.params.certificationId});
+  res.send({certification});
+})
+```
+- create a certification preview component
+```
+const CertificationPreview: React.FC<{certification: object}> = ({ certification }) => {
+
+  return (
+    <div className="certification-preview">
+      <div className="category">{certificaton.categoryName}</div>
+      <div className="certification">{certificaton.certificationName}</div>
+    </div>
+  )
+};
+
+export default CertificationPreview;
+```
+
+- define the event handler for CertificationPreview component
+```
+const handleClick = (event) => {
+  event.preventDefault();
+  // Navigate to a new view
+
+}
+...
+onClick={handleClick}
+```
+
+- add `switch` statement to `App` component to render different views
+```
+const [page, setPage] = useState("certificationsList");
+
+const pageContent = () => {
+  switch (page) {
+    case "certificationsList":
+      return <CertificationsList initialCertifications={initialData.certifications} />
+      // break;
+    case "certification:
+      return <Certification initialCertification={initialData.certification} />
+      // break;
+    default:
+      break;
+  }
+};
+...
+{pageContent()}
+```
+
+- pass down the function for setting the page
+```
+const navigateToCertification = () => {
+  setPage("certification");
+}
+```
+
+```
+<CertificationList initialCertifications={initialData.certifications} onCertificationClick={navigateToCertification} />
+```
+
+- call the onClick in the event handler
+
+# Section 12 - using the `useContext` for avoiding drilling down the params
+
+- TBD
+
+# Section 13 - certification component
+```
+const [page, setPage] = useState<"certificationsList" | "certification">("certificationsList");
+const [currentCertificationId, setCurrentCertificationId] = useState<string | undefined>();
+```
+
+```
+const Certification = ({id}) => {
+  
+  return id;
+};
+
+export default Certification;
 ```
