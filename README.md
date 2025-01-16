@@ -1095,9 +1095,93 @@ const [currentCertificationId, setCurrentCertificationId] = useState<string | un
 
 ```
 const Certification = ({id}) => {
+
+  const [certification, setCertification] = useState({});
+
+  useEffect(() => {
+    fetchCertification(id).then((certification) => {
+      setCertification(certification);
+    });
+  }, [id]);
   
-  return id;
+  return (
+    <>
+      <Header message={certification.name} />
+      <div className="certification">
+        <div className="title">Certification Description</div>
+        <div className="description">{certification.description}</div>
+      </div>
+    </>
+  );
 };
 
 export default Certification;
 ```
+
+# Section 14 - using React Router for navigation
+- TBD
+
+# Section 15 - using native browser history API for navigation
+- `window.history`
+```
+window.history.pushState({}, "title", "/new-page");
+```
+
+- implement navigation in App component
+```
+const navigateToCertification = (certificationId) => {
+  window.history.pushState({certificationId}, "", `/certifications/${certificationId}`);
+  setPage("certification");
+  setCurrentCertificationId(certificationId);
+};
+```
+
+- using `window.onpopstate` to navigate back and forth
+```
+useEffect(() => {
+  window.onpopstate = (event) => {
+    console.log(event);
+    const newPage = event.state?.certificationId ? "certification" : "certificationList";
+    setPage(newPage);
+    setCertificationId(event.state?.certificationId);
+  };
+}, []);
+
+```
+
+- server side rendering for certification page in `server.ts`
+```
+...
+server.get(["/", "/certification/:certificationId"], async (req, res) => {
+  const {initialMarkup, initialData} = await ServerRender();
+  res.render("index", {
+    initialMarkup,
+    initialData
+  })
+});
+```
+
+- open `render.tsx`
+```
+import ReactDOMServer from "react-dom/server";
+import { fetchCertificationList } from "../api-client";
+
+import App from "../components/app";
+
+const serverRender = async () => {
+  const certifications = await fetchCertificationList();
+
+  const initialMarkup = ReactDOMServer.renderToString(
+    <App initialData={initialData} />
+  );
+
+  return { initialMarkup, initialData: {certifications}};
+};
+
+export default serverRender;
+```
+
+
+
+
+
