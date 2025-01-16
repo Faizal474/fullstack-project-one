@@ -24,12 +24,12 @@ body {
   color: #0000ee;
 }
 
-.contest-preview {
+.certification-preview {
   margin: 1rem;
   border: thin solid #ccc;
 }
 
-.contest-preview .category {
+.certification-preview .category {
   border-bottom: thin solid #ccc;
   padding: 0.5rem;
   font-weight: bold;
@@ -37,31 +37,31 @@ body {
   background-color: #eee;
 }
 
-.contest-preview .contest {
+.certification-preview .certification {
   color: #333;
   padding: 0.5rem;
 }
 
-.contest .title {
+.certification .title {
   border: thin solid #ccc;
   padding: 0.5rem;
   font-weight: bold;
   background-color: #eee;
 }
 
-.contest .description,
-.contest .body {
+.certification .description,
+.certification .body {
   border: thin solid #ccc;
   border-top: unset;
   padding: 1rem;
   margin-bottom: 2rem;
 }
 
-.contest .body .list .item {
+.certification .body .list .item {
   margin: 0.5rem;
 }
 
-.contest .body form {
+.certification .body form {
   margin: 0.25rem;
 }
 
@@ -83,20 +83,20 @@ form button {
   border-radius: 0.25rem;
 }
 
-.add-new-contest form {
+.add-new-certification form {
   margin-top: 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.add-new-contest input,
-.add-new-contest textarea {
+.add-new-certification input,
+.add-new-certification textarea {
   display: block;
   margin-top: 1rem;
 }
 
-.add-new-contest .link {
+.add-new-certification .link {
   font-size: 1.2rem;
   margin: 2rem auto;
   text-align: center;
