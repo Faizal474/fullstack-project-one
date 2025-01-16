@@ -1181,7 +1181,56 @@ const serverRender = async () => {
 export default serverRender;
 ```
 
+- pass `req` object the serverRender function
+```
+...
+const {initialMarkup, initialData} = await ServerRender(req);
+```
 
+- modify `serverRender` function to dynamically render based on the `req` object
+```
+...
+// req.params
+const {certificationId} = req.params;
+
+const initialData = certificationId ? {
+  currentCertification: await fetchCertification(certificationId);
+} : {
+  certifications: await fetchCertificationList();
+}
+
+```
+
+- modify `App` component to use the `initialData.currentCertification`
+```
+...
+const [page, setPage] = useState<"certificationList" | "certification">(
+  initialData.currentCertification ? "certification" : "certificationList";
+);
+
+const [currentCertificationId, setCurrentCertificationId] = useState<string | undefined>(initialData.currentCertification?.id);
+```
+
+- replace `currentCertificationId` with `currentCertification`
+```
+const [currentCertification, setCurrentCertification] = useState<object | undefined> (initialData.currentCertification);
+
+...
+
+setCurrentCertification({id: event.state?.certificationId});
+...
+setCurrentCertification({id: certificationId});
+...
+return <Certification initialCertification={currentCertification}>
+```
+
+- modify `certification.tsx` component to accept the `initialCertification` as parameter
+```
+...
+const Certification = ({initialCertification}) => {
+  const [certification, setCertification] = useState(initialCertification);
+  ...
+};
 
 
 
