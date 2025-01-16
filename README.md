@@ -1231,6 +1231,24 @@ const Certification = ({initialCertification}) => {
   const [certification, setCertification] = useState(initialCertification);
   ...
 };
+```
 
+# Section 16 - fetch data conditionally
 
+- put the conditional fetch logic in `useEffect`
+```
+...
+useEffect(() => {
+  if (!certification.name) {
+    fetchCertification(certification.id).then((certification) => {
+        setCertification(certification);
+      });
+  }
+  
+}, [certification.id, certification.name]);
+```
 
+- navigating back from detail view to list view
+```
+TBD
+```
