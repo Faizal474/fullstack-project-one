@@ -1,11 +1,15 @@
 import os from "node:os";
 import express from "express";
 import {PORT, HOST, SERVER_URL} from "./config";
-
+import apiRouter from "./api-router";
+import adminRouter from "./admin-router";
 const server = express();
 
 server.set("view engine", "ejs");
 server.use(express.static("dist"));
+
+server.use("/api", apiRouter);
+server.use("/admin", adminRouter);
 
 server.use("/students", (req, res) => {
     //TODO get data from DB and serve to UI
