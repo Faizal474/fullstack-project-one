@@ -1,0 +1,24 @@
+[{
+  "id": "fullstack-developer-certification",
+  "categoryName": "Software Development",
+  "programmeName": "FullStack Developer Certification",
+  "description": "\nThis is for fullstack developer certification. This programme includes frontend, backend, database, devops \nand many more modules that teaches students everything they need to build a fully functional webapplication end to end.\n      "
+},
+{
+  "id": "frontend-developer-certification",
+  "categoryName": "Software Development",
+  "programmeName": "Frontend Developer Certification",
+  "description": "\nFrontend Developer Certification\n      "
+},
+{
+  "id": "backend-developer-certification",
+  "categoryName": "Software Development",
+  "programmeName": "Backend Developer Certification",
+  "description": "\nBackend Developer Certification\n      "
+},
+{
+  "id": "devops-engineer-certification",
+  "categoryName": "DevOps",
+  "programmeName": "DevOps Engineer Certification",
+  "description": "\nDevOps Engineer Certification\n      "
+}]
