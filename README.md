@@ -1233,7 +1233,7 @@ const Certification = ({initialCertification}) => {
 };
 ```
 
-# Section 16 - fetch data conditionally
+# Section 16 - fetch data conditionally and navigate with links
 
 - put the conditional fetch logic in `useEffect`
 ```
@@ -1248,7 +1248,118 @@ useEffect(() => {
 }, [certification.id, certification.name]);
 ```
 
-- navigating back from detail view to list view
+- navigating back from detail view to list view `certificaton.tsx`
 ```
-TBD
+import {useEffect, useState} from "react";
+
+import {fetchCertification} from "../api-client";
+
+import Header from "./header";
+
+const Certification = ({initialCertification}) => {
+  const [certification, setCertification] = useState(initialCertification);
+
+  useEffect(() => {
+    if (!certification.names) {
+      fetchCertification(certification.id).then((certification) => {
+        setCertification(certification);
+      });
+    }
+  }, [certification.id, certification.names]);
+
+  return (
+    <>
+      <Header message={certification.certificationName} />
+      <div className="certification">
+        <div className="title">Certification Description</div>
+        <div className="description">{certification.description}</div>
+
+        <a href="/" className="link">
+          Certification List
+        </a>
+      </div>
+    </>
+  );
+};
+
+export default Certification;
 ```
+
+- define `navigateToCertificationList` in `app.tsx`
+```
+const navigateToCertificationList = () => {
+  window.history.pushState(
+    {},
+    "",
+    "/",
+  );
+
+  setPage("certificationList");
+  setCurrentCertification(undefined);
+}
+...
+case "certification":
+  return <Certification initialCertification={currentCertification} onCertificationListClick={navigateToCertificationList} />
+```
+
+- modify `certification.tsx`
+```
+...
+const Certification = ({initialCertification, onCertificationListClick}) {
+  ...
+  const handleClickCertificationList = (event) => {
+    event.preventDefault();
+    onCertificationListClick();
+  };
+  ...
+
+  <a href="/" className="link"
+    onClick={handleClickCertificationList}>
+
+    Certification List
+  </a>
+};
+```
+
+- fetch certifications from API when we don't have initial data `certification-list.tsx`
+```
+...
+const [certifications, setCertifications] = useState(initialCertifications ?? []);
+...
+useEffect(() => {
+  if (!initialCertifications) {
+      
+    fetchCertificationList().then((certifications) => {
+      setCertifications(certifications);
+    })
+  }
+}, [initialCertifications])
+```
+
+# Section 17 - forms
+- edit `certification.tsx`
+```
+...
+<div className="body">
+  {certification.names?.length > 0 ? (
+    {certification.names.map((proposedName) => (
+      <div key={proposedName.id} className="item">
+        {proposedName.name}
+      </div>
+    ))}
+  ) : (
+    <div> No names proposed yet</div>
+    )}
+</div>
+
+<div className="title">Propose a New Name </div>
+<div className="body">
+  <form>
+    <input
+      type="text"
+      name="newName"
+      placeholder="New Name Here.." />
+  </form>
+</div>
+```
+
