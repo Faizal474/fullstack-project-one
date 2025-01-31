@@ -1340,6 +1340,12 @@ useEffect(() => {
 - edit `certification.tsx`
 ```
 ...
+const handleNewNameSubmit = (event) => {
+  event.preventDefault();
+  const newNameInput = event.target.newName;
+  console.log(newNameInput.value);
+};
+...
 <div className="body">
   {certification.names?.length > 0 ? (
     {certification.names.map((proposedName) => (
@@ -1354,12 +1360,73 @@ useEffect(() => {
 
 <div className="title">Propose a New Name </div>
 <div className="body">
-  <form>
+  <form onSubmit={handleNewNameSubmit}>
     <input
       type="text"
       name="newName"
+      <!-- value={} -->
+      <!-- onChange={} -->
       placeholder="New Name Here.." />
   </form>
 </div>
 ```
 
+# Section 18 - save form data in db
+- edit `api-router.ts`
+```
+router.post("/certification/:certificationId", async (req, res) => {
+  const client = await connectClient();
+
+  const { newNameValue } = req.body;
+
+  const doc = await client
+    .collection("certifications")
+    .findOneAndUpdate({
+      {id: req.params.certificationId},
+      
+      {
+        $push: {
+          names: {
+            id: newNameValue.toLowerCase().replace(/\s/g, '-'),
+            name: newNameValue,
+            timestamp: new Date(),
+          }
+        }
+      },
+
+      {
+        returnDocument: "after"
+      }
+    });
+
+    res.send({updatedCertification: doc.value})
+});
+```
+
+- edit `api-client.ts`
+```
+export const addNewNameToCertification = async ({certificationId, newNameValue}) => {
+  const resp = await axios.post(
+    `${API_SERVER_URL}/certification/${certificationId}`,
+    { newNameValue }
+  );
+
+  return resp.data.updatedCertification;
+}
+```
+
+- call the above function from `handleNewNameSubmit`
+```
+const handleNewNameSubmit = async (event) => {
+  ...
+  const resp = await addNewNameToCertification({certificationId: certification.id, newNameValue: newNameInput.value});
+  console.log(resp);
+  ...
+};
+```
+
+- add middleware to express for parsing the body `api-router.ts`
+```
+...
+router.use(express.json());
+```
