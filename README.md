@@ -1430,3 +1430,8 @@ const handleNewNameSubmit = async (event) => {
 ...
 router.use(express.json());
 ```
+
+# Section 19 - Exercises
+
+- make use of `insertOne()` in mongodb client
+- make use of `findOne()` in mongodb client
