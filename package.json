@@ -1,0 +1,29 @@
+{
+  "name": "fullstack-project-one",
+  "version": "1.0.0",
+  "description": "- git\r - node\r - github desktop app\r - clone repo",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev:server": "tsnd src/server/server.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nellorefaizal/fullstack-project-one.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nellorefaizal/fullstack-project-one/issues"
+  },
+  "homepage": "https://github.com/nellorefaizal/fullstack-project-one#readme",
+  "dependencies": {
+    "express": "^4.21.2",
+    "typescript": "^5.7.3"
+  },
+  "devDependencies": {
+    "eslint": "^9.20.1",
+    "prettier": "^3.5.0",
+    "ts-node-dev": "^2.0.0"
+  }
+}
